@@ -8,43 +8,43 @@ const Header = (props) => {
 }
 
 const App = (props) => {
-  const [notes, setNotes] = useState(props.notes)
-  const [newNote, setNewNote] = useState(
-    ''
-  )
+  const [ persons, setPersons] = useState([
+    { 
+      id: 1,
+      name: 'Arto Hellas' }
+  ]) 
+  const [ newName, setNewName ] = useState('')
 
-  const addNote = (event) => {
+  const addName = (event) => {
     event.preventDefault()
     const noteObject = {
-      content: newNote,
-      date: new Date().toISOString(),
-      important: Math.random() < 0.5,
-      id: notes.length + 1,
+      name: newName,
+      id: persons.length + 1,
     }
   
-    setNotes(notes.concat(noteObject))
-    setNewNote('')
+    setPersons(persons.concat(noteObject))
+    setNewName('')
   }
 
   const handleNoteChange = (event) => {
     console.log(event.target.value)
-    setNewNote(event.target.value)
+    setNewName(event.target.value)
   }
 
   return (
     <div>
       <Header head={"Phonebook"}/>
       <label>name: </label>
-      <form onSubmit={addNote}>
+      <form onSubmit={addName}>
         <input
-          value={newNote}
+          value={newName}
           onChange={handleNoteChange}
         />
         <button type="submit">add</button>
       </form>
       <Header head={"Numbers"}/>
-      {notes.map(note => 
-          <Note key={note.id} note={note} />
+      {persons.map(person => 
+          <Note key={person.id} person={person} />
       )}
     </div>
   )
